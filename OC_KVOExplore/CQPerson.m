@@ -17,6 +17,10 @@
     return self;
 }
 
+//- (void)setKname:(NSString * _Nonnull)kname {
+//    _kname = kname;
+//}
+
 - (void)setName:(NSString * _Nonnull)name {
     _name = name;
 }

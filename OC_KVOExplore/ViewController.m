@@ -8,6 +8,7 @@
 #import "ViewController.h"
 #import "CQPerson.h"
 
+#define BFStr(fmt, ...) [NSString stringWithFormat:fmt, ##__VA_ARGS__]
 @interface ViewController ()
 @property (nonatomic, strong) CQPerson *person;
 @end
@@ -19,6 +20,8 @@
     self.person = CQPerson.new;
     [self.person addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew context:NULL];
     [self.person addObserver:self forKeyPath:@"kname" options:NSKeyValueObservingOptionNew context:NULL];
+    NSString *testStr = BFStr(@"%@--%@--%@", @"1", @"2", @"3");
+    NSLog(testStr);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -40,7 +43,9 @@
     // 简写
     ((void(*)(id, SEL, NSString *))[self.person methodForSelector:sel])(self.person, sel, @"1");
     
-    // 通过kvo可以修改私有成员变量，但不会触发KVO
+    // 通过kvc直接修改属性名，会触发KVO
+    [self.person setValue:@"1" forKey:@"kname"];
+    // 通过kvc直接修改私有成员变量，不会触发KVO
     [self.person setValue:@"1" forKey:@"_kname"];
     
     NSLog(@"%@-%@",self.person.name,self.person.kname);
