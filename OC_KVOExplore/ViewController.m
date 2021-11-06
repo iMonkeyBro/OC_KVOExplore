@@ -44,7 +44,7 @@
     ((void(*)(id, SEL, NSString *))[self.person methodForSelector:sel])(self.person, sel, @"1");
     
     // 通过kvc直接修改属性名，会触发KVO
-    [self.person setValue:@"1" forKey:@"kname"];
+//    [self.person setValue:@"1" forKey:@"kname"];
     // 通过kvc直接修改私有成员变量，不会触发KVO
     [self.person setValue:@"1" forKey:@"_kname"];
     

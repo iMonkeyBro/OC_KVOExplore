@@ -27,6 +27,8 @@
 
 - (void)reloadName {
     self.name = @"1";
+    // 通过公开函数间接修改私有变量，不会触发KVO
+    _kname = @"1";
 }
 
 @end
