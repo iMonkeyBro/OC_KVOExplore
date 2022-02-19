@@ -11,10 +11,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CQPerson : NSObject
 
-@property (nonatomic, strong, readonly) NSString *name;  ///< name
-@property (nonatomic, strong, readonly) NSString *kname;  ///< kname
+@property (nonatomic, copy, readonly) NSString *name;
+@property (nonatomic, copy, readonly) NSString *nickName;
+@property (nonatomic, copy, readonly) NSString *mergeName;
+@property (nonatomic, strong, readonly) NSMutableArray *testArr;
 
-- (void)reloadName;
+
+- (void)reloadName:(NSString *)name;
 
 @end
 
