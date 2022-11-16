@@ -79,7 +79,6 @@ static void *NameContext = &NameContext;
     // 通过公开函数间接调用私有set函数，可以监听到
     [self.person reloadName:[NSString stringWithFormat:@"第%d次点击", _touchNumber]];
     
-    return;
     
     // 通过performSelector 调用私有set函数，可以监听到
     [self.person performSelector:@selector(setName:) withObject:@"1"];
@@ -92,10 +91,11 @@ static void *NameContext = &NameContext;
     // 简写
     ((void(*)(id, SEL, NSString *))[self.person methodForSelector:sel])(self.person, sel, @"1");
     
-    // 通过kvc直接修改属性名，会触发KVO
-    [self.person setValue:@"1" forKey:@"nickName"];
+    // 通过kvc修改属性名，按照kvc流程会先找set函数，所以会触发KVO
+    [self.person setValue:@"10" forKeyPath:@"nickName"];
     // 通过kvc直接修改私有成员变量，不会触发KVO
     [self.person setValue:@"100" forKey:@"_nickName"];
+
     
     NSLog(@"%@-%@",self.person.name,self.person.nickName);
 }
